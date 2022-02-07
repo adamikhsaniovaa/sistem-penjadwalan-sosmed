@@ -1,5 +1,5 @@
 <?php include('config.php'); 
-//jika benar mendapatkan GET id dari URL
+//jika benar mendapatkan GET id dari UR
 if(isset($_GET['Id'])){
 	//membuat variabel $id yang menyimpan nilai dari $_GET['id']
 	$ID = $_GET['Id'];
