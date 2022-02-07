@@ -38,7 +38,7 @@ include('config.php');
 							<td>'.$data['Jenis_Sosmed'].'</td>
 							<td>'.$data['tgl_posting'].'</td>
 							<td>
-								<a href="edit.php?page=edit_mhs&Nim='.$data['Judul_Konten'].'" class="btn btn-secondary btn-sm">Edit</a>
+								<a href="edit.php?Id='.$data['Id'].'" class="btn btn-secondary btn-sm">Edit</a>
 								<a href="delete.php?Id='.$data['Id'].'" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')">Delete</a>
 							</td>
 						</tr>
