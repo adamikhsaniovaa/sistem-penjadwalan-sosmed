@@ -1,11 +1,17 @@
 <?php include('config.php');
 if(isset($_GET['Id'])){
-	$ID = $_GET['Id'];
-	$cek = mysqli_query($koneksi, "SELECT * FROM konten WHERE ID='$ID'") or die(mysqli_error($koneksi));
-	if(mysqli_num_rows($cek) == 13){ 
+	$Id = $_GET['Id'];
+	$cek = mysqli_query($koneksi, "SELECT * FROM konten WHERE Id='$Id'") or die(mysqli_error($koneksi));
+	if(mysqli_num_rows($cek) > 0){ 
 		while ($d = mysqli_fetch_assoc($cek)){
 		echo'
 			<form action="update.php" method="post">
+			<div class="item form-group">
+				<label class="col-form-label col-md-3 col-sm-3 label-align">Id</label>
+				<div class="col-md-6 col-sm-6">
+					<input type="hidden" name="Id" value='.$d['Id'].'" class="form-control" required>
+				</div>
+			</div>
 			<div class="item form-group">
 				<label class="col-form-label col-md-3 col-sm-3 label-align">Judul Konten</label>
 				<div class="col-md-6 col-sm-6">
@@ -43,21 +49,4 @@ if(isset($_GET['Id'])){
 
 	}
 	?>
-		<form method="post" action="update.php">
-		<?php
-		//jika tombol simpan di tekan/klik
-		if(isset($_POST['submit'])){
-			$Judul_Konten			  = $_POST['Judul_Konten'];
-			$Jenis_Sosmed	= $_POST['Jenis_Sosmed'];
-			$tgl_posting	= $_POST['tgl_posting'];
-
-			$sql = mysqli_query($koneksi, "UPDATE konten SET Judul_Konten='$Judul_Konten', Jenis_Sosmed='$Jenis_Sosmed', tgl_posting='$tgl_posting' WHERE ID='$ID'") or die(mysqli_error($koneksi));
-
-			if($sql){
-				echo '<script>alert("Berhasil menyimpan data."); document.location="tampil.php?page=tampil_mhs";</script>';
-			}else{
-				echo '<div class="alert alert-warning">Gagal melakukan proses edit data.</div>';
-			}
-		}
-		?>
-	</form>
+		
