@@ -1,52 +1,29 @@
-<?php include('config.php');
-if(isset($_GET['Id'])){
-	$Id = $_GET['Id'];
-	$cek = mysqli_query($koneksi, "SELECT * FROM konten WHERE Id='$Id'") or die(mysqli_error($koneksi));
-	if(mysqli_num_rows($cek) > 0){ 
-		while ($d = mysqli_fetch_assoc($cek)){
-		echo'
-			<form action="update.php" method="post">
-			<div class="item form-group">
-				<label class="col-form-label col-md-3 col-sm-3 label-align">Id</label>
-				<div class="col-md-6 col-sm-6">
-					<input type="hidden" name="Id" value='.$d['Id'].'" class="form-control" required>
-				</div>
-			</div>
-			<div class="item form-group">
-				<label class="col-form-label col-md-3 col-sm-3 label-align">Judul Konten</label>
-				<div class="col-md-6 col-sm-6">
-					<input type="text" name="Judul_Konten" value='.$d['Judul_Konten'].'" class="form-control" required>
-				</div>
-			</div>
-			<div class="item form-group">
-				<label class="col-form-label col-md-3 col-sm-3 label-align">Jenis Sosmed</label>
-				<div class="col-md-6 col-sm-6">
-					<select name="Jenis_Sosmed" value="'.$d['Jenis_Sosmed'].'" class="form-control" required>
-						<option value="">Pilih Sosial Media</option>
-						<option value="Instagram">Instagram</option>
-						<option value="FacebookL">Facebook</option>
-						<option value="Youtube">Youtube</option>
-					</select>
-				</div>
-			</div>
-			<div class="item form-group">
-				<label class="col-form-label col-md-3 col-sm-3 label-align">Tanggal Posting</label>
-				<div class="col-md-6 col-sm-6">
-					<input type="date" name="tgl_posting" value="'.$d['tgl_posting'].'" class="form-control" required>
-				</div>
-			</div>
-			<div class="item form-group">
-				<div  class="col-md-6 col-sm-6 offset-md-3">
-					<input type="submit" name="submit" class="btn btn-primary" value="Simpan">
-			</div>
-		</form>
-		';
-	}
-	}
-	}else{
-		echo '<script>alert("Data Tidak Ada!"); document.location="tampil.php?page=tampil_mhs";</script>';
-		
+<?php
+//include file config.php
+include('config.php');
+    
+    if($_POST['Id_JSosmed']) {
+        $Id_JSosmed = $_POST['Id_JSosmed'];
+        // mengambil data berdasarkan id
+        // dan menampilkan data ke dalam form modal bootstrap
+        $sql = "SELECT * FROM jenis_sosmed WHERE id = $Id_JSosmed";
+        $result = $koneksi->query($sql);
+        foreach ($result as $baris) { ?>
 
-	}
-	?>
-		
+        <!-- MEMBUAT FORM -->
+        <form action="update.php" method="post">
+            <input type="hidden" name="Id_JSosmed" value="<?php echo $baris['Id_JSosmed']; ?>">
+            <div class="form-group">
+                <label>Nama Barang</label>
+                <input type="text" class="form-control" name="Judul" value="<?php echo $baris['Judul']; ?>">
+            </div>
+            <div class="form-group">
+                <label>Deskripsi</label>
+                <textarea class="form-control" rows="5" name="Deskripsi" ><?php echo $baris['Deskripsi']; ?></textarea>
+            </div>
+              <button class="btn btn-primary" type="submit">Update</button>
+        </form>
+
+        <?php } }
+  
+?>
